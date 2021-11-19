@@ -23,7 +23,7 @@ export class MyDropzone extends React.Component {
   render() {
     return (
       <>
-        <Dropzone onDrop={ (acceptedFiles) => this.onDrop(acceptedFiles) } accept="image/*">
+        <Dropzone onDrop={ (acceptedFiles) => this.onDrop(acceptedFiles) } accept="image/*" noClick={true}>
           {({
             getRootProps,
             getInputProps,
@@ -50,7 +50,7 @@ export class MyDropzone extends React.Component {
                 >
                   <div className="flex flex-col">
                     <svg
-                      className="mx-auto h-12 w-12 text-gray-400"
+                      className="mx-auto h-12 w-12 text-gray-400 hover:text-indigo-700 cursor-pointer"
                       stroke="currentColor"
                       fill="none"
                       viewBox="0 0 48 48"
@@ -67,7 +67,7 @@ export class MyDropzone extends React.Component {
                       <input {...getInputProps()}   />
 
                     </div>
-                    <p className="pl-1">Clique ou Escolha seu(s) arquivo(s)</p>
+                    <p className="pl-1">Clique ou Arraste seu(s) arquivo(s)</p>
                     <p className="text-xs text-gray-500">Apenas Imagens e PDF (PNG, JPG, GIF, BMP ou PDF) </p>
                   </div>
 
