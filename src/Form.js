@@ -1,4 +1,3 @@
-import { CreditCardIcon, KeyIcon, UserCircleIcon, UserGroupIcon, ViewGridAddIcon } from '@heroicons/react/outline'
 import { MyDropzone } from './MyDropzone'
 
 

@@ -1,5 +1,6 @@
 import React from "react";
 import Dropzone from "react-dropzone";
+import { DropzoneIcon } from "./DropzoneIcon";
 import { FileRow } from "./FileRow";
 
 export class MyDropzone extends React.Component {
@@ -8,6 +9,13 @@ export class MyDropzone extends React.Component {
     super(props);
     this.state = {
       files: []
+    }
+    this.dropzoneRef = React.createRef();
+  }
+
+  openDialog() {
+    if (this.dropzoneRef && this.dropzoneRef.current) {
+      this.dropzoneRef.current.open();
     }
   }
 
@@ -23,7 +31,7 @@ export class MyDropzone extends React.Component {
   render() {
     return (
       <>
-        <Dropzone onDrop={ (acceptedFiles) => this.onDrop(acceptedFiles) } accept="image/*" noClick={true}>
+        <Dropzone onDrop={ (acceptedFiles) => this.onDrop(acceptedFiles) } accept="image/*" noClick={true} ref={this.dropzoneRef}>
           {({
             getRootProps,
             getInputProps,
@@ -49,23 +57,9 @@ export class MyDropzone extends React.Component {
                       }
                 >
                   <div className="flex flex-col">
-                    <svg
-                      className="mx-auto h-12 w-12 text-gray-400 hover:text-indigo-700 cursor-pointer"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <DropzoneIcon onClick={() => this.openDialog()} />
                     <div className="flex text-sm text-gray-600">
-                      <input {...getInputProps()}   />
-
+                      <input {...getInputProps()} />
                     </div>
                     <p className="pl-1">Clique ou Arraste seu(s) arquivo(s)</p>
                     <p className="text-xs text-gray-500">Apenas Imagens e PDF (PNG, JPG, GIF, BMP ou PDF) </p>
@@ -77,8 +71,7 @@ export class MyDropzone extends React.Component {
                   <div className="w-full col-span-3">
                     {
                       this.state.files.map((file, index) => (
-                          
-                            <FileRow file={file} key={index} />
+                        <FileRow file={file} key={index} onSave={() => {}} url="http://localhost:5000/upload" />
                       ))
                     }
                   </div>

@@ -9,6 +9,7 @@ export function ButtonCancel(props) {
             focus:outline-none focus:border-red-300 focus:shadow-outline-red 
             active:text-red-800 active:bg-red-50 
             transition ease-in-out duration-150"
+        onClick={props.onClick}
     >
         <svg
             className="-ml-0.5 h-4 w-4"

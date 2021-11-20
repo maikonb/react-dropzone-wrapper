@@ -9,6 +9,7 @@ export function ButtonUpload(props) {
             focus:shadow-outline-blue 
             active:text-gray-800 active:bg-gray-50 
             transition ease-in-out duration-150"
+      onClick={props.onClick}
     >
       <svg
         className="-ml-0.5 mr-1 h-4 w-4"
