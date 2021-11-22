@@ -11,14 +11,14 @@ export default function Example() {
         <form action="#" method="POST">
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="bg-white py-6 px-4 space-y-6 sm:p-6">
-
-
               <div className="grid grid-cols-3 gap-6">
-
-
                 <div className="col-span-3">
                   <label className="block text-sm font-medium text-gray-700">Cover photo</label>
-                  <MyDropzone />
+
+                  
+                  <MyDropzone url="http://localhost:5000/upload" accept="image/*"  maxFiles={1} />
+
+
                 </div>
               </div>
             </div>

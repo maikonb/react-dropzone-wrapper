@@ -1,7 +1,7 @@
 export function FileIcon() {
   return (
     <svg
-      className="h-4 w-4 text-blue-800 flex-shrink-0  ml-2"
+      className="h-4 w-4 text-gray-500 flex-shrink-0  ml-2 "
       stroke="currentColor"
       fill="none"
       viewBox="0 0 24 24"

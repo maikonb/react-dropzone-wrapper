@@ -20,8 +20,19 @@ export class MyDropzone extends React.Component {
   }
 
   onDrop(files) {
-    this.setState((state) => ({ files: state.files.concat(files) }));
-    console.log(this.state.files);
+    this.setState((state) => {
+      let filenames = state.files.map(file => file.path);
+      let newFiles = files.filter(file => !filenames.includes(file.path));
+      return { files: state.files.concat(newFiles) };
+    });
+  }
+
+  onDelete(index) {
+    this.setState(
+      (state) => ({ 
+        files: state.files.filter((_, i) => i !== index) 
+      })
+    );
   }
 
   classNames(...classes) {
@@ -31,7 +42,7 @@ export class MyDropzone extends React.Component {
   render() {
     return (
       <>
-        <Dropzone onDrop={ (acceptedFiles) => this.onDrop(acceptedFiles) } accept="image/*" noClick={true} ref={this.dropzoneRef}>
+        <Dropzone onDrop={ (acceptedFiles) => this.onDrop(acceptedFiles) } accept={this.props.accept} noClick={true} maxFiles={this.props.maxFiles} ref={this.dropzoneRef}>
           {({
             getRootProps,
             getInputProps,
@@ -71,7 +82,12 @@ export class MyDropzone extends React.Component {
                   <div className="w-full col-span-3">
                     {
                       this.state.files.map((file, index) => (
-                        <FileRow file={file} key={index} onSave={() => {}} url="http://localhost:5000/upload" />
+                        <FileRow 
+                          file={file} 
+                          key={file.path} 
+                          onSave={() => {}} onDelete={() => this.onDelete(index)} 
+                          url={this.props.url} 
+                        />
                       ))
                     }
                   </div>

@@ -15,10 +15,10 @@ export function ButtonCancel(props) {
             className="-ml-0.5 h-4 w-4"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
+            strokeWidth="2"
             viewBox="0 0 24 24"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
         >
             <circle cx="12" cy="12" r="10" />
             <line x1="15" y1="9" x2="9" y2="15" />

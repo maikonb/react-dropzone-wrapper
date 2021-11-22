@@ -15,7 +15,7 @@ export default class FileUploadStatus {
   }
 
   onComplete(cb) {
-    this.event.on("on-complete", cb);
+    this.event.on("on-complete",(data) => cb(data));
     return this;
   }
 

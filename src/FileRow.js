@@ -22,7 +22,7 @@ export class FileRow extends React.Component {
 
   delete() {
     if (this.props.onDelete && typeof this.props.onDelete === "function") {
-      this.props.onDelete(this.props.key);
+      this.props.onDelete();
     }
   }
 
@@ -30,6 +30,10 @@ export class FileRow extends React.Component {
     if (this.currentUploadService != null) {
       this.currentUploadService.cancelUpload();
     }
+    this.setState({ 
+      uploadStatus: UPLOAD_STATUS.NOT_STARTED,
+      uploadPercentage: 0
+    });
   }
   
 
@@ -40,17 +44,21 @@ export class FileRow extends React.Component {
       .upload()
       .onProgressChange((progress) => this.setState({ uploadPercentage: progress }))
       .onError(() => this.setState({ uploadStatus: UPLOAD_STATUS.ERROR}))
-      .onComplete(() => {
+      .onComplete((data) => {
         this.setState({ uploadStatus: UPLOAD_STATUS.COMPLETE });
         this.currentUploadService = null;
+        if (this.props.onComplete && typeof this.props.onComplete === "function") {
+          this.props.onComplete(data);
+        }
       })
   }
 
   render() {
     return(
       <div className="flex-grow grid grid-cols-8 py-1">
+
         <div className="flex justify-end col-span-2">
-          {(this.state.uploadStatus===UPLOAD_STATUS.NOT_STARTED) && <ButtonDelete onClick={ (index) => this.delete() } /> }
+          {(this.state.uploadStatus===UPLOAD_STATUS.NOT_STARTED) && <ButtonDelete onClick={ () => this.delete() } /> }
           {(this.state.uploadStatus===UPLOAD_STATUS.IN_PROGRESS) && <ButtonCancel onClick={ () => this.cancel() } /> }
           {(this.state.uploadStatus===UPLOAD_STATUS.NOT_STARTED) && <ButtonUpload onClick={ () => this.upload() } /> }
           {(this.state.uploadStatus===UPLOAD_STATUS.COMPLETE)    && <CheckMarkIcon />}
@@ -65,6 +73,7 @@ export class FileRow extends React.Component {
             {this.props.file.name}
           </span>
         </div>
+        
       </div>
     )
   }
