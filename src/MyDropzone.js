@@ -38,6 +38,11 @@ export class MyDropzone extends React.Component {
   classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
+  
+  onComplete(data) {
+    if (this.props.onComplete && typeof this.props.onComplete === "function")
+      this.props.onComplete(data);    
+  }
 
   render() {
     return (
@@ -72,8 +77,8 @@ export class MyDropzone extends React.Component {
                     <div className="flex text-sm text-gray-600">
                       <input {...getInputProps()} />
                     </div>
-                    <p className="pl-1">Clique ou Arraste seu(s) arquivo(s)</p>
-                    <p className="text-xs text-gray-500">Apenas Imagens e PDF (PNG, JPG, GIF, BMP ou PDF) </p>
+                    <p className="pl-1">{this.props.label1}</p>
+                    <p className="text-xs text-gray-500"> {this.props.label2} </p>
                   </div>
 
                 </div>
@@ -86,7 +91,8 @@ export class MyDropzone extends React.Component {
                           file={file} 
                           key={file.path} 
                           onSave={() => {}} onDelete={() => this.onDelete(index)} 
-                          url={this.props.url} 
+                          url={this.props.url}
+                          onComplete={ (response) => this.onComplete(response) } 
                         />
                       ))
                     }

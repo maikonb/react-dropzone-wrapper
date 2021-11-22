@@ -15,8 +15,12 @@ export default function Example() {
                 <div className="col-span-3">
                   <label className="block text-sm font-medium text-gray-700">Cover photo</label>
 
-                  
-                  <MyDropzone url="http://localhost:5000/upload" accept="image/*"  maxFiles={1} />
+
+                  <MyDropzone 
+                    url="http://localhost:5000/upload" accept="image/*"   
+                    label1="Clique ou Arraste seu(s) arquivo(s)"
+                    label2="Apenas Imagens e PDF (PNG, JPG, GIF, BMP ou PDF)"
+                  />
 
 
                 </div>

@@ -6,14 +6,15 @@ export class FileUploadService {
   sourceCancel = null;
   uploadPercentage = 0;
 
-  constructor(file, url) {
+  constructor(file, url, fileFieldName='uploaded_file') {
     this.file = file;
     this.url = url;
+    this.fileFieldName = fileFieldName;
   }
 
   upload() {
     let formData = new FormData();
-    formData.append("uploaded_file", this.file);
+    formData.append(this.fileFieldName, this.file);
     this.sourceCancel = axios.CancelToken.source();
     axios
       .post(this.url, formData, {
@@ -29,7 +30,10 @@ export class FileUploadService {
         }
       })
       .then(data => {
-        this.status.event.emit("on-complete", data);
+        this.status.event.emit("on-complete", {
+          file: this.file,
+          data: data.data
+        });
       })
       .catch(thrown => {
         if (axios.isCancel(thrown)) {
@@ -43,7 +47,6 @@ export class FileUploadService {
   }
 
   cancelUpload() {
-    console.log('cancel');
     if (this.sourceCancel != null)
       this.sourceCancel.cancel("Upload canceled by the user.");
   }
